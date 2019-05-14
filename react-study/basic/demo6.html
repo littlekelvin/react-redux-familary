@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <script src="./build/react.development.js"></script>
+    <script src="./build/react-dom.development.js"></script>
+    <script src="./build/babel.min.js"></script>
+</head>
+<body>
+<div id="example"></div>
+<script type="text/babel">
+    class MyCompo extends React.Component {
+        constructor(props) {
+            super(props);
+            this.myInputText = React.createRef();
+            this.handleClick = this.handleClick.bind(this)
+            this.textOnChange = this.textOnChange.bind(this)
+        }
+
+        handleClick() {
+            console.log(this.myInputText);
+            this.myInputText.current.focus();
+            console.log(this.myInputText.current.value);
+        }
+
+        textOnChange() {
+            console.log(this.myInputText.current.value)
+        }
+
+        render() {
+            return (
+                <div>
+                    <input type="text" ref={this.myInputText} onChange={this.textOnChange}/> <br/>
+                    <input type="button" value="click me" onClick={this.handleClick}/>
+                </div>
+            );
+        }
+    }
+
+    ReactDOM.render(
+        <MyCompo />,
+        document.getElementById('example')
+    );
+</script>
+</body>
+</html>

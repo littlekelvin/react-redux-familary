@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <script src="./build/react.development.js"></script>
+    <script src="./build/react-dom.development.js"></script>
+    <script src="./build/babel.min.js"></script>
+</head>
+<body>
+<div id="example"></div>
+<script type="text/babel">
+    class MyCompo extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                liked: false,
+                value: 'Hello'
+            }
+            this.handleClick = this.handleClick.bind(this)
+            this.handleTextChange = this.handleTextChange.bind(this)
+        }
+
+        handleClick() {
+            this.setState({liked: !this.state.liked});
+        }
+
+        handleTextChange(e) {
+            this.setState({
+                value: e.target.value
+            });
+            console.log(e.target.value);
+        }
+
+        render() {  // this.state.liked's value change, will trigger render() method be called.
+            var text = this.state.liked ? 'like':'not like';
+            var value = this.state.value
+            return (
+                <div>
+                    <p onClick={this.handleClick}>
+                        You {text} this. Click to toggle
+                    </p><br/>
+                    <input type="text" value={this.state.value} onChange={this.handleTextChange}/>
+                </div>
+            )
+        }
+    }
+
+    ReactDOM.render(
+        <MyCompo/>,
+        document.getElementById('example')
+    )
+</script>
+</body>
+</html>
